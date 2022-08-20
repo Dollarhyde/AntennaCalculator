@@ -90,6 +90,48 @@ def unit_print(name, value, unit=None):
     else:
         print("[*]", name, "= {:.2f}".format((value*ureg.meter).to_compact()))
 
+def export_png(filename, W, L, x0, y0, ws):
+    if args.pngoutput:
+         filename = args.pngoutput
+    if args.type == "microstrip":
+        print_patch(filename, round((W * ureg.meter).to(ureg.centimeter), 3).magnitude, round((L * ureg.meter).to(ureg.centimeter), 3).magnitude,
+        round((x0 * ureg.meter).to(ureg.centimeter), 3).magnitude, round((y0 * ureg.meter).to(ureg.centimeter), 3).magnitude,
+        round((ws * ureg.meter).to(ureg.centimeter), 3).magnitude)
+    elif args.type == "probe":
+        print_patch(filename, round((W * ureg.meter).to(ureg.centimeter), 3).magnitude, round((L * ureg.meter).to(ureg.centimeter), 3).magnitude,
+        round((x0 * ureg.meter).to(ureg.centimeter), 3).magnitude, round((y0 * ureg.meter).to(ureg.centimeter), 3).magnitude)
+
+def export_dxf(filename, W, L, x0, y0, ws):
+    if args.dxfoutput:
+        filename = args.dxfoutput
+    if args.type == "microstrip":
+        if args.dxfunit:
+            generate_dxf(filename, round((W * ureg.meter).to(args.dxfunit), 5).magnitude, round((L * ureg.meter).to(args.dxfunit), 5).magnitude,
+            round((x0 * ureg.meter).to(args.dxfunit), 5).magnitude, round((y0 * ureg.meter).to(args.dxfunit), 5).magnitude,
+            round((ws * ureg.meter).to(args.dxfunit), 5).magnitude)
+        else:
+            generate_dxf(filename, round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
+            round((x0 * ureg.meter), 5).magnitude, round((y0 * ureg.meter), 5).magnitude,
+            round((ws * ureg.meter), 5).magnitude)
+    elif args.type == "probe":
+        if args.dxfunit:
+            generate_dxf(filename, round((W * ureg.meter).to(args.dxfunit), 5).magnitude, round((L * ureg.meter).to(args.dxfunit), 5).magnitude,
+            round((x0 * ureg.meter).to(args.dxfunit), 5).magnitude, round((y0 * ureg.meter).to(args.dxfunit), 5).magnitude)
+        else:
+            generate_dxf(filename, round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
+            round((x0 * ureg.meter), 5).magnitude, round((y0 * ureg.meter), 5).magnitude)
+
+def export_patch_to_png():
+    if args.type == 'microstrip':
+        export_png(args.pngoutput, args.width, args.length, args.x0, args.y0, args.strip_width if args.type == "microstrip" else None)
+    elif args.type == 'probe':
+        export_png(args.pngoutput, args.width, args.length, args.x0, args.y0, args.strip_width if args.type == "microstrip" else None)    
+
+def export_patch_to_dxf():
+    if args.type == 'microstrip':
+        export_dxf(args.dxfoutput, args.width, args.length, args.x0, args.y0, args.strip_width if args.type == "microstrip" else None)
+    elif args.type == 'probe':
+        export_dxf(args.dxfoutput, args.width, args.length, args.x0, args.y0, args.strip_width if args.type == "microstrip" else None)
 
 def microstrip_patch_calculator():
 
@@ -113,40 +155,28 @@ def microstrip_patch_calculator():
     L = Leff - 2*dL
     unit_print("L", L, args.unit)
 
-    if args.type == "microstrip":
-        ws = ws_calculation(args.height, Z0, args.relative_permittivity)
-        unit_print("Ws", ws, args.unit)
+    x0 = x0_calculation(L, W, args.relative_permittivity, Z0)
+    unit_print("x0", x0, args.unit)
 
     y0 = y0_calculation(W)
     unit_print("y0", y0, args.unit)
 
-    x0 = x0_calculation(L, W, args.relative_permittivity, Z0)
-    unit_print("x0", x0, args.unit)
-    
+    if args.type == "microstrip":
+        ws = ws_calculation(args.height, Z0, args.relative_permittivity)
+        unit_print("Ws", ws, args.unit)
+
     if args.pngoutput:
-        if args.type == "microstrip":
-            print_patch(round((W * ureg.meter).to(ureg.centimeter), 3).magnitude, round((L * ureg.meter).to(ureg.centimeter), 3).magnitude,
-            round((x0 * ureg.meter).to(ureg.centimeter), 3).magnitude, round((y0 * ureg.meter).to(ureg.centimeter), 3).magnitude,
-            round((ws * ureg.meter).to(ureg.centimeter), 3).magnitude)
-        elif args.type == "probe":
-            print_patch(round((W * ureg.meter).to(ureg.centimeter), 3).magnitude, round((L * ureg.meter).to(ureg.centimeter), 3).magnitude,
-            round((x0 * ureg.meter).to(ureg.centimeter), 3).magnitude, round((y0 * ureg.meter).to(ureg.centimeter), 3).magnitude)
+        export_png(args.pngoutput, W, L, x0, y0, ws if args.type == "microstrip" else None)
 
     if args.dxfoutput:
+        export_dxf(args.dxfoutput, W, L, x0, y0, ws if args.type == "microstrip" else None)
+
+    if args.variable_return:
         if args.type == "microstrip":
-            if args.dxfunit:
-                generate_dxf(round((W * ureg.meter).to(args.dxfunit), 5).magnitude, round((L * ureg.meter).to(args.dxfunit), 5).magnitude,
-                round((x0 * ureg.meter).to(args.dxfunit), 5).magnitude, round((y0 * ureg.meter).to(args.dxfunit), 5).magnitude,
-                round((ws * ureg.meter).to(args.dxfunit), 5).magnitude)
-            else:
-                generate_dxf(round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
-                round((x0 * ureg.meter), 5).magnitude, round((y0 * ureg.meter), 5).magnitude,
-                round((ws * ureg.meter), 5).magnitude)
+            return W, L, x0, y0, ws
         elif args.type == "probe":
-            if args.dxfunit:
-                generate_dxf(round((W * ureg.meter).to(args.dxfunit), 5).magnitude, round((L * ureg.meter).to(args.dxfunit), 5).magnitude,
-                round((x0 * ureg.meter).to(args.dxfunit), 5).magnitude, round((y0 * ureg.meter).to(args.dxfunit), 5).magnitude)
-            else:
-                generate_dxf(round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
-                round((x0 * ureg.meter), 5).magnitude, round((y0 * ureg.meter), 5).magnitude)
+            return W, L, x0, y0
+
+
+
 

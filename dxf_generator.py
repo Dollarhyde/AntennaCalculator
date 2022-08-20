@@ -1,6 +1,6 @@
 from antenna_calculator import args
 
-def generate_dxf(W, L, x0, y0, Ws=None):
+def generate_dxf(filename, W, L, x0, y0, Ws=None):
     import ezdxf
 
     # Initialize drawing
@@ -37,4 +37,4 @@ def generate_dxf(W, L, x0, y0, Ws=None):
     msp.add_lwpolyline(substrate_points)
 
     # Save DXF file
-    doc.saveas(args.dxfoutput)
+    doc.saveas(filename)
