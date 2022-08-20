@@ -1,6 +1,6 @@
 from antenna_calculator import args
 
-def print_patch(W, L, x0, y0, Ws=None):
+def print_patch(filename, W, L, x0, y0, Ws=None):
     from PIL import Image, ImageDraw
 
     w_cm, h_cm = (22, 28)             # Size of letter paper in cm
@@ -64,5 +64,4 @@ def print_patch(W, L, x0, y0, Ws=None):
         img.show() # enable for debugging
     
     # Save image
-    if args.pngoutput:
-        img.save(args.pngoutput, dpi=(res_x, res_y))
+    img.save(filename, dpi=(res_x, res_y))
