@@ -1,6 +1,6 @@
 import ezdxf
 
-class dxfGenerator:
+class DXFGenerator:
     def __init__(self, args):
         self.args = args
 

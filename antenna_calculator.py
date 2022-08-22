@@ -1,14 +1,14 @@
 import argparse
-from rectangular_patch import rectangularPatch
-from dipole import dipole
-from monopole import monopole
+from rectangular_patch import RectangularPatch
+from dipole import Dipole
+from monopole import Monopole
 
-class AntennaCalculator():
+class AntennaCalculator:
     def __init__(self, a=None):
         main_parser = argparse.ArgumentParser(description='Antenna Calculator', add_help=False)
         main_parser.add_argument('--help', action='help', default=argparse.SUPPRESS,
                                  help='Show this help message and exit')
-        main_parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+        main_parser.add_argument('--version', action='version', version='%(prog)s 2.0')
 
         subparsers = main_parser.add_subparsers(help='sub-command help', dest='subparser_'
                                                                               'name')
@@ -35,7 +35,7 @@ class AntennaCalculator():
                                                  help='Name of DXF file')
         rectangular_patch_subparser.add_argument('--pngoutput', type=str, required=False, default='patch.png',
                                                  help='Name of PNG image for printing')
-        rectangular_patch_subparser.add_argument('--variable_return', action='store_true', required=False, default=True,
+        rectangular_patch_subparser.add_argument('--variable_return', action='store_true', required=False, default=False,
                                                  help='Return Variables instead of printing')
 
         rectangular_patch_export_subparser = subparsers.add_parser('rectangular_patch_export', add_help=False)
@@ -81,35 +81,43 @@ class AntennaCalculator():
                                                      help='Unit of measurement')
 
         self.args = main_parser.parse_args(a)
+        self.calcedParams = None #to catch returned vars if they exist
 
 
     def main(self, args):
         if args.subparser_name == 'rectangular_patch':
-            rPatch = rectangularPatch(args)
-            rPatch.microstrip_patch_calculator()
+            rPatch = RectangularPatch(args)
+            self.calcedParams = rPatch.microstrip_patch_calculator()
 
         if args.subparser_name == 'rectangular_patch_export':
-            rPatch = rectangularPatch(args)
+            rPatch = RectangularPatch(args)
             if args.pngoutput:
                 rPatch.export_patch_to_png()
             if args.dxfoutput:
                 rPatch.export_patch_to_dxf()
 
         if args.subparser_name == 'half_wave_dipole':
-            d = dipole(args)
-            d.half_wave_dipole_calculator()
+            d = Dipole(args)
+            self.calcedParams = d.half_wave_dipole_calculator()
 
         if args.subparser_name == 'quarter_wave_monopole':
-            m = monopole(args)
-            m.quarter_wave_monopole_calculator()
+            m = Monopole(args)
+            self.calcedParams = m.quarter_wave_monopole_calculator()
 
     def getArgs(self):
         return self.args
 
+    def getCalcedParams(self):
+        return self.calcedParams
+
 if __name__ ==  "__main__":
-    shell = AntennaCalculator(['rectangular_patch', '-f', '2.4e9', '-er', '4.4', '-h','1.6e-3'])
+    # same format as CLI,
+    # e.g. python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --variable_return
+    shell = AntennaCalculator(['rectangular_patch', '-f', '2.4e9', '-er', '4.4', '-h','1.6e-3', '--variable_return'])
     args = shell.getArgs()
     shell.main(args)
+    print(shell.getCalcedParams())
+
 
 
 

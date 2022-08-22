@@ -3,14 +3,14 @@ from cmath import e
 from pint import UnitRegistry
 ureg = UnitRegistry()
 
-from print_generator import printGenerator
-from dxf_generator import dxfGenerator
+from print_generator import PrintGenerator
+from dxf_generator import DXFGenerator
 
-class rectangularPatch():
+class RectangularPatch():
     def __init__(self, args):
-        self.printGen = printGenerator(args)
-        self.dxfGen = dxfGenerator(args)
-        self.args = args #userinput args
+        self.printGen = PrintGenerator(args)
+        self.dxfGen = DXFGenerator(args)
+        self.args = args
 
     def patch_width(self, f, er):
         return (3e8 / (2 * f)) * math.sqrt(2/(er+1))
@@ -139,8 +139,7 @@ class rectangularPatch():
 
     def microstrip_patch_calculator(self, Z0=50):
 
-        #Z0 = 50 # change if Z0 if necessary
-        Z0 = Z0 # change if Z0 if necessary
+        Z0 = Z0 #50 ohms by default
 
         W = self.patch_width(self.args.frequency, self.args.relative_permittivity)
         self.unit_print("W", W, self.args.unit)

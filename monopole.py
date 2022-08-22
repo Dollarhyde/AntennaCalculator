@@ -1,7 +1,7 @@
 from pint import UnitRegistry
 ureg = UnitRegistry()
 
-class monopole:
+class Monopole:
     def __init__(self, args):
         self.args = args
 
