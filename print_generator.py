@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw
 
-class printGenerator:
+class PrintGenerator:
     def __init__(self, args):
         self.args = args
 
