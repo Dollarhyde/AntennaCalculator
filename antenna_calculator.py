@@ -113,10 +113,9 @@ class AntennaCalculator:
 if __name__ ==  "__main__":
     # same format as CLI,
     # e.g. python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --variable_return
-    shell = AntennaCalculator(['rectangular_patch', '-f', '2.4e9', '-er', '4.4', '-h','1.6e-3', '--variable_return'])
+    shell = AntennaCalculator()
     args = shell.getArgs()
     shell.main(args)
-    print(shell.getCalcedParams())
 
 
 
