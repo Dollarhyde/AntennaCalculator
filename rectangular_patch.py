@@ -5,11 +5,13 @@ ureg = UnitRegistry()
 
 from print_generator import PrintGenerator
 from dxf_generator import DXFGenerator
+from gerber_generator import GerberGenerator
 
 class RectangularPatch():
     def __init__(self, args):
         self.printGen = PrintGenerator(args)
         self.dxfGen = DXFGenerator(args)
+        self.gerberGen = GerberGenerator(args)
         self.args = args
 
     def patch_width(self, f, er):
@@ -105,25 +107,27 @@ class RectangularPatch():
             self.printGen.print_patch(filename, round((W * ureg.meter).to(ureg.centimeter), 3).magnitude, round((L * ureg.meter).to(ureg.centimeter), 3).magnitude,
             round((x0 * ureg.meter).to(ureg.centimeter), 3).magnitude, round((y0 * ureg.meter).to(ureg.centimeter), 3).magnitude)
 
-    def export_dxf(self, filename, W, L, x0, y0, ws):
-        if self.args.dxfoutput:
+    def export_dxf(self, filename, W, L, x0, y0, ws, separate_layers=None):
+        if self.args.gerberoutput:
+            filename = self.args.gerberoutput
+        elif self.args.dxfoutput:
             filename = self.args.dxfoutput
         if self.args.type == "microstrip":
             if self.args.dxfunit:
                 self.dxfGen.generate_dxf(filename, round((W * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((L * ureg.meter).to(self.args.dxfunit), 5).magnitude,
                 round((x0 * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((y0 * ureg.meter).to(self.args.dxfunit), 5).magnitude,
-                round((ws * ureg.meter).to(self.args.dxfunit), 5).magnitude)
+                round((ws * ureg.meter).to(self.args.dxfunit), 5).magnitude, separate_layers)
             else:
                 self.dxfGen.generate_dxf(filename, round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
                 round((x0 * ureg.meter), 5).magnitude, round((y0 * ureg.meter), 5).magnitude,
-                round((ws * ureg.meter), 5).magnitude)
+                round((ws * ureg.meter), 5).magnitude, separate_layers)
         elif self.args.type == "probe":
             if self.args.dxfunit:
                 self.dxfGen.generate_dxf(filename, round((W * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((L * ureg.meter).to(self.args.dxfunit), 5).magnitude,
-                round((x0 * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((y0 * ureg.meter).to(self.args.dxfunit), 5).magnitude)
+                round((x0 * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((y0 * ureg.meter).to(self.args.dxfunit), 5).magnitude, None, separate_layers)
             else:
                 self.dxfGen.generate_dxf(filename, round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
-                round((x0 * ureg.meter), 5).magnitude, round((y0 * ureg.meter), 5).magnitude)
+                round((x0 * ureg.meter), 5).magnitude, round((y0 * ureg.meter), 5).magnitude, None, separate_layers)
 
     def export_patch_to_png(self):
         if self.args.type == 'microstrip':
@@ -136,6 +140,15 @@ class RectangularPatch():
             self.export_dxf(self.args.dxfoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None)
         elif self.args.type == 'probe':
             self.export_dxf(self.args.dxfoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None)
+
+    def export_patch_to_gerber(self):
+        if self.args.type == 'microstrip':
+            self.export_dxf(self.args.gerberoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None, True)
+            self.gerberGen.generate_gerber(self.args.gerberoutput)
+        elif self.args.type == 'probe':
+            self.export_dxf(self.args.gerberoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None, True)
+            self.gerberGen.generate_gerber(self.args.gerberoutput)
+
 
     def microstrip_patch_calculator(self, Z0=50):
 
@@ -174,6 +187,10 @@ class RectangularPatch():
 
         if self.args.dxfoutput:
             self.export_dxf(self.args.dxfoutput, W, L, x0, y0, ws if self.args.type == "microstrip" else None)
+
+        if self.args.gerberoutput:
+            self.export_dxf(self.args.gerberoutput, W, L, x0, y0, ws if self.args.type == "microstrip" else None, True)
+            self.gerberGen.generate_gerber(self.args.gerberoutput)
 
         if self.args.variable_return:
             if self.args.type == "microstrip":

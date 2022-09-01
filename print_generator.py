@@ -65,3 +65,4 @@ class PrintGenerator:
 
         # Save image
         img.save(filename, dpi=(res_x, res_y))
+        print("[*] Image saved: " + filename)

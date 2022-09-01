@@ -31,10 +31,12 @@ class AntennaCalculator:
         rectangular_patch_subparser.add_argument('-du', '--dxfunit', type=str,
                                                  choices=['meter', 'centimeter', 'millimeter', 'inch'], required=False,
                                                  help='DXF Unit of measurement')
-        rectangular_patch_subparser.add_argument('--dxfoutput', type=str, required=False, default='patch.dxf',
-                                                 help='Name of DXF file')
-        rectangular_patch_subparser.add_argument('--pngoutput', type=str, required=False, default='patch.png',
-                                                 help='Name of PNG image for printing')
+        rectangular_patch_subparser.add_argument('--dxfoutput', type=str, required=False, 
+                                                 help='Name of .dxf file')
+        rectangular_patch_subparser.add_argument('--gerberoutput', type=str, required=False,
+                                                 help='Name of gerber file, no extension needed')                                                 
+        rectangular_patch_subparser.add_argument('--pngoutput', type=str, required=False,
+                                                 help='Name of .png image for printing')
         rectangular_patch_subparser.add_argument('--variable_return', action='store_true', required=False, default=False,
                                                  help='Return Variables instead of printing')
 
@@ -55,10 +57,12 @@ class AntennaCalculator:
         rectangular_patch_export_subparser.add_argument('-du', '--dxfunit', type=str,
                                                         choices=['meter', 'centimeter', 'millimeter', 'inch'],
                                                         required=False, help='DXF Unit of measurement')
-        rectangular_patch_export_subparser.add_argument('--dxfoutput', type=str, required=False, default='patch.dxf',
-                                                        help='Name of DXF file')
-        rectangular_patch_export_subparser.add_argument('--pngoutput', type=str, required=False, default='patch.png',
-                                                        help='Name of PNG image for printing')
+        rectangular_patch_export_subparser.add_argument('--dxfoutput', type=str, required=False, 
+                                                        help='Name of .dxf file')
+        rectangular_patch_export_subparser.add_argument('--gerberoutput', type=str, required=False, 
+                                                        help='Name of gerber file, no extension needed')                                                        
+        rectangular_patch_export_subparser.add_argument('--pngoutput', type=str, required=False, 
+                                                        help='Name of .png image for printing')
 
         half_wave_dipole_subparser = subparsers.add_parser('half_wave_dipole', add_help=False)
         half_wave_dipole_subparser.add_argument('--help', action='help', default=argparse.SUPPRESS,
@@ -95,6 +99,8 @@ class AntennaCalculator:
                 rPatch.export_patch_to_png()
             if args.dxfoutput:
                 rPatch.export_patch_to_dxf()
+            if args.gerberoutput:
+                rPatch.export_patch_to_gerber()
 
         if args.subparser_name == 'half_wave_dipole':
             d = Dipole(args)
