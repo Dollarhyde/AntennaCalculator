@@ -82,3 +82,7 @@ python3 antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3
 ## DXF output using `--dxfoutput`
 
 ![image](https://user-images.githubusercontent.com/18094862/184427196-34eb8369-11e8-48cb-9426-3251ef8c7e84.png)
+
+## Gerber output using `--gerberoutput`
+![image](https://user-images.githubusercontent.com/18094862/187831470-c8cb4801-b0c9-44e2-acc7-454ad2d03f37.png)
+
