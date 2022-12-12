@@ -86,3 +86,7 @@ python3 antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3
 ## Gerber output using `--gerberoutput`
 ![image](https://user-images.githubusercontent.com/18094862/187831470-c8cb4801-b0c9-44e2-acc7-454ad2d03f37.png)
 
+# DEFCON Presentation
+[![DEFCON Presentation](https://i.ytimg.com/vi/7mciNPmT1KE/hqdefault.jpg)](https://www.youtube.com/watch?v=7mciNPmT1KE "DEF CON 30 RF Village - Erwin Karincic - Have a SDR? - Design and make your own antennas")
+## PDF presentation
+[PDF link](https://github.com/Dollarhyde/AntennaCalculator/blob/main/Have%20a%20Software%20Defined%20Radio%20-%20Design%20and%20make%20your%20own%20antennas.pdf)
