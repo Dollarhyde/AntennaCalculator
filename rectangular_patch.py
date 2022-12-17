@@ -155,7 +155,8 @@ class RectangularPatch():
         Z0 = Z0 #50 ohms by default
 
         W = self.patch_width(self.args.frequency, self.args.relative_permittivity)
-        self.unit_print("W", W, self.args.unit)
+        if not (self.args.variable_return):
+            self.unit_print("W", W, self.args.unit)
 
         ereff = self.effective_relative_permittivity(self.args.frequency, self.args.relative_permittivity, self.args.height, W)
         if self.args.verbose:
@@ -170,13 +171,16 @@ class RectangularPatch():
             self.unit_print("Leff", Leff, self.args.unit)
 
         L = Leff - 2*dL
-        self.unit_print("L", L, self.args.unit)
+        if not (self.args.variable_return):
+            self.unit_print("L", L, self.args.unit)
 
         x0 = self.x0_calculation(L, W, self.args.relative_permittivity, Z0)
-        self.unit_print("x0", x0, self.args.unit)
+        if not (self.args.variable_return):
+            self.unit_print("x0", x0, self.args.unit)
 
         y0 = self.y0_calculation(W)
-        self.unit_print("y0", y0, self.args.unit)
+        if not (self.args.variable_return):
+            self.unit_print("y0", y0, self.args.unit)
 
         if self.args.type == "microstrip":
             ws = self.ws_calculation(self.args.height, Z0, self.args.relative_permittivity)
