@@ -3,12 +3,12 @@
 Open Source Antenna Designer
 
 ```
-usage: antenna_calculator.py [--help] [--version] {rectangular_patch,half_wave_dipole,quarter_wave_monopole} ...
+usage: antenna_calculator.py [--help] [--version] {rectangular_patch,half_wave_dipole,quarter_wave_monopole, bowtie} ...
 
 Antenna Calculator
 
 positional arguments:
-  {rectangular_patch,half_wave_dipole,quarter_wave_monopole}
+  {rectangular_patch,half_wave_dipole,quarter_wave_monopole, bowtie}
                         sub-command help
 
 optional arguments:
@@ -62,6 +62,25 @@ optional arguments:
                         Frequency in Hz
   -u {meter,centimeter,millimeter,inch}, --unit {meter,centimeter,millimeter,inch}
                         Unit of measurement
+```
+```
+usage: antenna_calculator.py bowtie [--help] [--verbose]  -f FREQUENCY 
+                                               [-u {meter,centimeter,millimeter,inch}] [-du {meter,centimeter,millimeter,inch}] [--dxfoutput DXFOUTPUT]
+                                               [--pngoutput PNGOUTPUT]
+
+optional arguments:
+  --help                Show this help message and exit
+  --verbose
+  -f FREQUENCY, --frequency FREQUENCY
+                        Frequency in Hz
+  -u {meter,centimeter,millimeter,inch}, --unit {meter,centimeter,millimeter,inch}
+                        Unit of measurement
+  -du {meter,centimeter,millimeter,inch}, --dxfunit {meter,centimeter,millimeter,inch}
+                        DXF Unit of measurement
+  --dxfoutput DXFOUTPUT
+                        Name of DXF file
+  --pngoutput PNGOUTPUT
+                        Name of PNG image for printing
 ```
 
 ## Rectangular Patch Example
