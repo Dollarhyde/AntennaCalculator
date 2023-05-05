@@ -114,19 +114,19 @@ class RectangularPatch():
             filename = self.args.dxfoutput
         if self.args.type == "microstrip":
             if self.args.dxfunit:
-                self.dxfGen.generate_dxf(filename, round((W * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((L * ureg.meter).to(self.args.dxfunit), 5).magnitude,
+                self.dxfGen.generate_patch_dxf(filename, round((W * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((L * ureg.meter).to(self.args.dxfunit), 5).magnitude,
                 round((x0 * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((y0 * ureg.meter).to(self.args.dxfunit), 5).magnitude,
                 round((ws * ureg.meter).to(self.args.dxfunit), 5).magnitude, separate_layers)
             else:
-                self.dxfGen.generate_dxf(filename, round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
+                self.dxfGen.generate_patch_dxf(filename, round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
                 round((x0 * ureg.meter), 5).magnitude, round((y0 * ureg.meter), 5).magnitude,
                 round((ws * ureg.meter), 5).magnitude, separate_layers)
         elif self.args.type == "probe":
             if self.args.dxfunit:
-                self.dxfGen.generate_dxf(filename, round((W * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((L * ureg.meter).to(self.args.dxfunit), 5).magnitude,
+                self.dxfGen.generate_patch_dxf(filename, round((W * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((L * ureg.meter).to(self.args.dxfunit), 5).magnitude,
                 round((x0 * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((y0 * ureg.meter).to(self.args.dxfunit), 5).magnitude, None, separate_layers)
             else:
-                self.dxfGen.generate_dxf(filename, round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
+                self.dxfGen.generate_patch_dxf(filename, round((W * ureg.meter), 5).magnitude, round((L * ureg.meter), 5).magnitude,
                 round((x0 * ureg.meter), 5).magnitude, round((y0 * ureg.meter), 5).magnitude, None, separate_layers)
 
     def export_patch_to_png(self):
@@ -184,7 +184,8 @@ class RectangularPatch():
 
         if self.args.type == "microstrip":
             ws = self.ws_calculation(self.args.height, Z0, self.args.relative_permittivity)
-            self.unit_print("Ws", ws, self.args.unit)
+            if not (self.args.variable_return):    
+                self.unit_print("Ws", ws, self.args.unit)
 
         if self.args.pngoutput:
             self.export_png(self.args.pngoutput, W, L, x0, y0, ws if self.args.type == "microstrip" else None)
