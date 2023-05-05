@@ -86,7 +86,7 @@ class Bowtie():
             self.export_dxf(self.args.dxfoutput, W, L, g)
 
         if self.args.gerberoutput:
-            self.export_dxf(self.args.gerberoutput, W, L, g)
+            self.export_dxf(self.args.gerberoutput, W, L, g, True)
             self.gerberGen.generate_gerber(self.args.gerberoutput)
 
         if self.args.variable_return:
