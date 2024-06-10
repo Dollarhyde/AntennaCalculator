@@ -2,7 +2,6 @@ import argparse
 from rectangular_patch import RectangularPatch
 from dipole import Dipole
 from monopole import Monopole
-from bowtie import Bowtie
 
 class AntennaCalculator:
     def __init__(self, a=None):
@@ -88,49 +87,7 @@ class AntennaCalculator:
                                                      required=False,
                                                      help='Unit of measurement')
         
-        # BOWTIE
-        bowtie_subparser = subparsers.add_parser('bowtie', add_help=False)
-        bowtie_subparser.add_argument('--help', action='help', default=argparse.SUPPRESS,
-                                                help='Show this help message and exit')
-        bowtie_subparser.add_argument('--verbose', action='store_true')
-        bowtie_subparser.add_argument('-f', '--frequency', type=float, required=True, help='Frequency in Hz')
-        bowtie_subparser.add_argument('-u', '--unit', type=str,
-                                                choices=['meter', 'centimeter', 'millimeter', 'inch'], required=False,
-                                                help='Unit of measurement')
-        bowtie_subparser.add_argument('-du', '--dxfunit', type=str,
-                                                 choices=['meter', 'centimeter', 'millimeter', 'inch'], required=False,
-                                                 help='DXF Unit of measurement')
-        bowtie_subparser.add_argument('--dxfoutput', type=str, required=False, 
-                                                 help='Name of .dxf file')
-        bowtie_subparser.add_argument('--gerberoutput', type=str, required=False,
-                                                 help='Name of gerber file, no extension needed')                                                 
-        bowtie_subparser.add_argument('--pngoutput', type=str, required=False,
-                                                 help='Name of .png image for printing')
-        bowtie_subparser.add_argument('--variable_return', action='store_true', required=False, default=False,
-                                                 help='Return Variables instead of printing')
-
-
-        bowtie_export_subparser = subparsers.add_parser('bowtie_export', add_help=False)
-        bowtie_export_subparser.add_argument('--help', action='help', default=argparse.SUPPRESS,
-                                                        help='Show this help message and exit')
-        bowtie_export_subparser.add_argument('--verbose', action='store_true')
-        bowtie_export_subparser.add_argument('-W', '--width', type=float, required=True,
-                                                        help='width in meters')
-        bowtie_export_subparser.add_argument('-L', '--length', type=float, required=True,
-                                                        help='length in meters')
-        bowtie_export_subparser.add_argument('-g', type=float, required=True, help='gap in meters')
-        bowtie_export_subparser.add_argument('-du', '--dxfunit', type=str,
-                                                        choices=['meter', 'centimeter', 'millimeter', 'inch'],
-                                                        required=False, help='DXF Unit of measurement')
-        bowtie_export_subparser.add_argument('--dxfoutput', type=str, required=False, 
-                                                        help='Name of .dxf file')
-        bowtie_export_subparser.add_argument('--gerberoutput', type=str, required=False, 
-                                                        help='Name of gerber file, no extension needed')                                                        
-        bowtie_export_subparser.add_argument('--pngoutput', type=str, required=False, 
-                                                        help='Name of .png image for printing')
-
-
-
+        
 
         self.args = main_parser.parse_args(a)
         self.calcedParams = None #to catch returned vars if they exist
@@ -158,19 +115,6 @@ class AntennaCalculator:
             m = Monopole(args)
             self.calcedParams = m.quarter_wave_monopole_calculator()
 
-        if args.subparser_name == 'bowtie':
-            b = Bowtie(args)
-            self.calcedParams = b.bowtie_calculator()
-        
-        if args.subparser_name == 'bowtie_export':
-            b = Bowtie(args)
-            if args.pngoutput:
-                b.export_bowtie_to_png()
-            if args.dxfoutput:
-                b.export_bowtie_to_dxf()
-            if args.gerberoutput:
-                b.export_bowtie_to_gerber()
-
 
     def getArgs(self):
         return self.args
@@ -179,6 +123,7 @@ class AntennaCalculator:
         return self.calcedParams
 
 if __name__ ==  "__main__":
+    # unit test func.
     # same format as CLI
     shell = AntennaCalculator()
     args = shell.getArgs()
@@ -186,5 +131,3 @@ if __name__ ==  "__main__":
 
     # examples:
     # python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --variable_return
-    # python antenna_calculator.py bowtie_export -W .005 -L .0028 -g .00027 --dxfoutput 'testFile.dxf'
-
