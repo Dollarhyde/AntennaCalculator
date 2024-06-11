@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import math
 from cmath import e
 from pint import UnitRegistry
