@@ -14,7 +14,7 @@ Supported exports:
 * [Requirements](#requirements)
 * [Usage](#usage)
     * [Rectangular Patch Usage](#rectangular-patch-usage)
-    * [Half Wave Dipole Usage](#half-wave-dipole-ssage)
+    * [Half Wave Dipole Usage](#half-wave-dipole-usage)
     * [Quarter Wave Monopole Usage](#quarter-wave-monopole-usage)
 * [Examples](#example-implementations)
     * [Rectanglar Patch](#rectangular-patch)
