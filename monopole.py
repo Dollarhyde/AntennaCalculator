@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 from pint import UnitRegistry
 ureg = UnitRegistry()
 
@@ -17,9 +19,11 @@ class Monopole:
     def quarter_wave_monopole_calculator(self):
         f = self.args.frequency
         l = self.quarter_wave_monopole(f)
-        self.unit_print("Quarter Wave Monopole Length", l, self.args.unit)
+        if self.args.verbose:
+            self.unit_print("Quarter Wave Monopole Length", l, self.args.unit)
+        else:
+            self.unit_print("L", l, self.args.unit)
 
-
-
-
+        if self.args.variable_return:
+            return l
 
