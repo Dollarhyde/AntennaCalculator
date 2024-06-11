@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import argparse
 from rectangular_patch import RectangularPatch
 from dipole import Dipole
@@ -74,6 +76,9 @@ class AntennaCalculator:
         half_wave_dipole_subparser.add_argument('-u', '--unit', type=str,
                                                 choices=['meter', 'centimeter', 'millimeter', 'inch'], required=False,
                                                 help='Unit of measurement')
+        half_wave_dipole_subparser.add_argument('--variable_return', action='store_true', required=False, default=False,
+                                                 help='Return Variables instead of printing')
+
 
         # QUARTER WAVE MONOPOLE
         quarter_wave_monopole_subparser = subparsers.add_parser('quarter_wave_monopole', add_help=False)
@@ -84,8 +89,9 @@ class AntennaCalculator:
                                                      help='Frequency in Hz')
         quarter_wave_monopole_subparser.add_argument('-u', '--unit', type=str,
                                                      choices=['meter', 'centimeter', 'millimeter', 'inch'],
-                                                     required=False,
-                                                     help='Unit of measurement')
+                                                     required=False, help='Unit of measurement')
+        quarter_wave_monopole_subparser.add_argument('--variable_return', action='store_true', required=False, default=False,
+                                                 help='Return Variables instead of printing')
         
         
 
