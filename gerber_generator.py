@@ -1,4 +1,6 @@
-import gerberex
+#! /usr/bin/python3
+
+import gerberex # pip install pcb-tools-extension
 
 class GerberGenerator:
     def __init__(self, args):

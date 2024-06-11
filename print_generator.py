@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 from PIL import Image, ImageDraw
 
 class PrintGenerator:
