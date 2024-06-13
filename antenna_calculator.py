@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import argparse
 from rectangular_patch import RectangularPatch
 from dipole import Dipole
@@ -13,6 +15,7 @@ class AntennaCalculator:
         subparsers = main_parser.add_subparsers(help='sub-command help', dest='subparser_'
                                                                               'name')
 
+        # RECTANGULAR PATCH
         rectangular_patch_subparser = subparsers.add_parser('rectangular_patch', add_help=False)
         rectangular_patch_subparser.add_argument('--help', action='help', default=argparse.SUPPRESS,
                                                  help='Show this help message and exit')
@@ -64,6 +67,7 @@ class AntennaCalculator:
         rectangular_patch_export_subparser.add_argument('--pngoutput', type=str, required=False, 
                                                         help='Name of .png image for printing')
 
+        #HALF WAVE DIPOLE
         half_wave_dipole_subparser = subparsers.add_parser('half_wave_dipole', add_help=False)
         half_wave_dipole_subparser.add_argument('--help', action='help', default=argparse.SUPPRESS,
                                                 help='Show this help message and exit')
@@ -72,7 +76,11 @@ class AntennaCalculator:
         half_wave_dipole_subparser.add_argument('-u', '--unit', type=str,
                                                 choices=['meter', 'centimeter', 'millimeter', 'inch'], required=False,
                                                 help='Unit of measurement')
+        half_wave_dipole_subparser.add_argument('--variable_return', action='store_true', required=False, default=False,
+                                                 help='Return Variables instead of printing')
 
+
+        # QUARTER WAVE MONOPOLE
         quarter_wave_monopole_subparser = subparsers.add_parser('quarter_wave_monopole', add_help=False)
         quarter_wave_monopole_subparser.add_argument('--help', action='help', default=argparse.SUPPRESS,
                                                      help='Show this help message and exit')
@@ -81,8 +89,11 @@ class AntennaCalculator:
                                                      help='Frequency in Hz')
         quarter_wave_monopole_subparser.add_argument('-u', '--unit', type=str,
                                                      choices=['meter', 'centimeter', 'millimeter', 'inch'],
-                                                     required=False,
-                                                     help='Unit of measurement')
+                                                     required=False, help='Unit of measurement')
+        quarter_wave_monopole_subparser.add_argument('--variable_return', action='store_true', required=False, default=False,
+                                                 help='Return Variables instead of printing')
+        
+        
 
         self.args = main_parser.parse_args(a)
         self.calcedParams = None #to catch returned vars if they exist
@@ -110,6 +121,7 @@ class AntennaCalculator:
             m = Monopole(args)
             self.calcedParams = m.quarter_wave_monopole_calculator()
 
+
     def getArgs(self):
         return self.args
 
@@ -117,12 +129,11 @@ class AntennaCalculator:
         return self.calcedParams
 
 if __name__ ==  "__main__":
-    # same format as CLI,
-    # e.g. python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --variable_return
+    # unit test func.
+    # same format as CLI
     shell = AntennaCalculator()
     args = shell.getArgs()
     shell.main(args)
 
-
-
-
+    # examples:
+    # python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --variable_return

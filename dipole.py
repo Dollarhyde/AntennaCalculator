@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 from pint import UnitRegistry
 ureg = UnitRegistry()
 
@@ -17,10 +19,12 @@ class Dipole:
     def half_wave_dipole_calculator(self):
         f = self.args.frequency
         l = self.half_wave_dipole(f)
-        self.unit_print("Total Dipole Length", l, self.args.unit)
-        self.unit_print("Each Dipole Element Length", l/2, self.args.unit)
-
-
-
-
+        if self.args.verbose:
+            self.unit_print("Total Dipole Length", l, self.args.unit)
+            self.unit_print("Each Dipole Element Length", l/2, self.args.unit)
+        else:
+            self.unit_print("L_total", l, self.args.unit)
+            self.unit_print("L_element", l/2, self.args.unit)
+        if self.args.variable_return:
+            return l
 
