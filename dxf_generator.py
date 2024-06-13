@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 from os import sep
 import ezdxf
 
@@ -5,7 +7,7 @@ class DXFGenerator:
     def __init__(self, args):
         self.args = args
 
-    def generate_dxf(self, filename, W, L, x0, y0, Ws=None, separate_layers=None):
+    def generate_patch_dxf(self, filename, W, L, x0, y0, Ws=None, separate_layers=None):
 
         # Initialize drawing
         doc = ezdxf.new('R2000')
@@ -65,3 +67,4 @@ class DXFGenerator:
         if separate_layers:
             print("[*] Top Layer DXF file generated: " + filename.split(".")[0] + "_top.dxf")
             print("[*] Substrate DXF file generated: " + filename.split(".")[0] + "_substrate.dxf")
+

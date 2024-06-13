@@ -1,6 +1,53 @@
 # AntennaCalculator
 
-Open Source Antenna Designer
+Open Source Antenna Designer. 
+
+The calculator features the following topologies:
+* Rectangular patch antenna, probe and microstrip versions
+* Quarter Wave Monopole
+* Half Wave Dipole
+
+Supported exports:
+* Rectangular patch: top layer PNG, top layer DXF, gerber files
+
+## Table of Contents
+* [Requirements](#requirements)
+* [Usage](#usage)
+    * [Rectangular Patch Usage](#rectangular-patch-usage)
+    * [Half Wave Dipole Usage](#half-wave-dipole-usage)
+    * [Quarter Wave Monopole Usage](#quarter-wave-monopole-usage)
+* [Examples](#example-implementations)
+    * [Rectanglar Patch](#rectangular-patch)
+      * [PNG output using `--pngoutput`](#png-output-using---pngoutput)
+      * [DXF output using `--dxfoutput`](#dxf-output-using---dxfoutput)
+      * [Gerber output using `--gerberoutput`](#gerber-output-using---gerberoutput)
+* [References](#references)
+* [Publications and Presentations](#publications-and-presentations)
+    * [Papers](#papers)
+    * [DEFCON 30 Presentation](#defcon-30-presentation)
+      * [Presentation Recording](#presentation-recording)
+      * [PDF Presentation](#pdf-presentation)
+
+
+## Requirements
+
+This project requires numpy, pcb-tools-extension, ezdxf. 
+
+Use 'pip install -r requirements.txt' to install the following dependencies:
+
+```python
+ezdxf~=0.18
+numpy~=1.23.2
+pcb-tools~=0.1.6
+pcb-tools-extension~=0.9.3
+Pillow~=9.5.0
+Pint~=0.19.2
+
+```
+
+
+## Usage
+
 
 ```
 usage: antenna_calculator.py [--help] [--version] {rectangular_patch,half_wave_dipole,quarter_wave_monopole} ...
@@ -16,6 +63,7 @@ optional arguments:
   --version             show program's version number and exit
 ```
 
+### Rectangular Patch Usage
 ```
 usage: antenna_calculator.py rectangular_patch [--help] [--verbose] [--type {microstrip,probe}] -f FREQUENCY -er RELATIVE_PERMITTIVITY -h HEIGHT
                                                [-u {meter,centimeter,millimeter,inch}] [-du {meter,centimeter,millimeter,inch}] [--dxfoutput DXFOUTPUT]
@@ -41,6 +89,8 @@ optional arguments:
   --pngoutput PNGOUTPUT
                         Name of PNG image for printing
 ```
+
+### Half Wave Dipole Usage
 ```
 usage: antenna_calculator.py half_wave_dipole [--help] [--verbose] -f FREQUENCY [-u {meter,centimeter,millimeter,inch}]
 
@@ -52,6 +102,8 @@ optional arguments:
   -u {meter,centimeter,millimeter,inch}, --unit {meter,centimeter,millimeter,inch}
                         Unit of measurement
 ```
+
+### Quarter Wave Monopole Usage
 ```
 usage: antenna_calculator.py quarter_wave_monopole [--help] [--verbose] -f FREQUENCY [-u {meter,centimeter,millimeter,inch}]
 
@@ -64,7 +116,9 @@ optional arguments:
                         Unit of measurement
 ```
 
-## Rectangular Patch Example
+## Examples
+
+### Rectangular Patch
 
 ```
 python3 antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3
@@ -75,18 +129,42 @@ python3 antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3
 [*] x0 = 11.32 millimeter
 ```
 
-## PNG output using `--pngoutput`
+#### PNG output using `--pngoutput`
 
 ![image](https://user-images.githubusercontent.com/18094862/184426961-36c21cbd-9cff-4c4b-a275-a81e187ce86c.png)
 
-## DXF output using `--dxfoutput`
+#### DXF output using `--dxfoutput`
 
 ![image](https://user-images.githubusercontent.com/18094862/184427196-34eb8369-11e8-48cb-9426-3251ef8c7e84.png)
 
-## Gerber output using `--gerberoutput`
+#### Gerber output using `--gerberoutput`
 ![image](https://user-images.githubusercontent.com/18094862/187831470-c8cb4801-b0c9-44e2-acc7-454ad2d03f37.png)
 
-# DEFCON Presentation
+
+
+
+## References
+
+[1]: C. A. Balanis, Antenna Theory: Analysis and Design. Hoboken, New Jersey Wiley, 2016.
+
+
+
+## Publications and Presentations
+### Papers
+
+* E. Karincic, E. Topsakal, and L. Linkous.  "Patch Antenna Calculations and Fabrication Made Simple for Cyber Security Research,"  2023 ASEE Annual Conference & Exposition, Baltimore , Maryland, 2023, June.  ASEE Conferences, 2023. [Online:] https://peer.asee.org/43974 
+
+* L. Linkous, E. Karincic, J. Lundquist and E. Topsakal, "Automated Antenna Calculation, Design and Tuning Tool for HFSS," 2023 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM), Boulder, CO, USA, 2023, pp. 229-230, doi: 10.23919/USNC-URSINRSM57470.2023.10043119.
+
+* L. Linkous, J. Lundquist and E. Topsakal, "AntennaCAT: Automated Antenna Design and Tuning Tool," 2023 IEEE USNC-URSI Radio Science Meeting (Joint with AP-S Symposium), Portland, OR, USA, 2023, pp. 89-90, doi: 10.23919/USNC-URSI54200.2023.10289238.
+
+
+
+### DEFCON 30 Presentation
+#### Presentation Recording
 [![DEFCON Presentation](https://i.ytimg.com/vi/7mciNPmT1KE/hqdefault.jpg)](https://www.youtube.com/watch?v=7mciNPmT1KE "DEF CON 30 RF Village - Erwin Karincic - Have a SDR? - Design and make your own antennas")
-## PDF presentation
-[PDF link](https://github.com/Dollarhyde/AntennaCalculator/blob/main/Have%20a%20Software%20Defined%20Radio%20-%20Design%20and%20make%20your%20own%20antennas.pdf)
+
+#### PDF Presentation
+["DEF CON 30 RF Village - Erwin Karincic - Have a SDR? - Design and make your own antennas" PDF link](https://github.com/Dollarhyde/AntennaCalculator/blob/main/Have%20a%20Software%20Defined%20Radio%20-%20Design%20and%20make%20your%20own%20antennas.pdf)
+
+

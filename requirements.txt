@@ -1,4 +1,6 @@
-numpy~=1.23.2
-Pint~=0.19.2
 ezdxf~=0.18
+numpy~=1.23.2
+pcb-tools~=0.1.6
 pcb-tools-extension~=0.9.3
+Pillow~=9.5.0
+Pint~=0.19.2
