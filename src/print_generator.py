@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw  #pip install pillow
 
 class PrintGenerator:
     def __init__(self, args):
