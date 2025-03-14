@@ -137,10 +137,9 @@ optional arguments:
 **Standard variable print out:**
 ```
 python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3
-```
 
-Terminal printout:
-```
+
+
 [*] W = 38.04 millimeter
 [*] L = 29.44 millimeter
 [*] x0 = 11.32 millimeter
@@ -152,10 +151,8 @@ Terminal printout:
 **Full variable print out:**
 ```
 python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --verbose
-```
 
-Terminal printout:
-```
+
 [*] W = 38.04 millimeter
 [*] Ereff = 4.09
 [*] dL = 738.82 micrometer
@@ -193,13 +190,63 @@ python3 antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3
 
 #### PNG output using `--pngoutput`
 
+```
+python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --pngoutput myPNG.PNG 
+
+
+[*] W = 38.04 millimeter
+[*] L = 29.44 millimeter
+[*] x0 = 11.32 millimeter
+[*] y0 = 19.02 millimeter
+[*] Ws = 3.06 millimeter
+[*] Image saved: myPNG.PNG
+
+```
+
+
+
 ![image](https://user-images.githubusercontent.com/18094862/184426961-36c21cbd-9cff-4c4b-a275-a81e187ce86c.png)
 
 #### DXF output using `--dxfoutput`
 
+```
+python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --dxfoutput myDXF.dxf
+
+
+[*] W = 38.04 millimeter
+[*] L = 29.44 millimeter
+[*] x0 = 11.32 millimeter
+[*] y0 = 19.02 millimeter
+[*] Ws = 3.06 millimeter
+[*] DXF file generated: myDXF.dxf
+
+```
+
+
+
 ![image](https://user-images.githubusercontent.com/18094862/184427196-34eb8369-11e8-48cb-9426-3251ef8c7e84.png)
 
 #### Gerber output using `--gerberoutput`
+
+```
+python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --gerberoutput myGerberFiles
+
+
+[*] W = 38.04 millimeter
+[*] L = 29.44 millimeter
+[*] x0 = 11.32 millimeter
+[*] y0 = 19.02 millimeter
+[*] Ws = 3.06 millimeter
+[*] DXF file generated: myGerberFiles
+[*] Top Layer DXF file generated: myGerberFiles_top.dxf
+[*] Substrate DXF file generated: myGerberFiles_substrate.dxf
+[*] Top layer gerber file generated: myGerberFiles_top.gtl
+[*] Substrate gerber file generated: myGerberFiles_substrate.gml
+
+```
+
+
+
 ![image](https://user-images.githubusercontent.com/18094862/187831470-c8cb4801-b0c9-44e2-acc7-454ad2d03f37.png)
 
 
