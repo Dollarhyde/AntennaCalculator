@@ -131,13 +131,14 @@ optional arguments:
 
 ## Examples
 
-### Returning Variables
+### Rectangular Patch
+
+#### Calculating and Returning Variables
 
 
 **Standard variable print out:**
 ```
 python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3
-
 
 
 [*] W = 38.04 millimeter
@@ -174,19 +175,6 @@ python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --verb
 python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3 --variable_return
 ```
 
-
-
-
-### Rectangular Patch
-
-```
-python3 antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3
-[*] W = 38.04 millimeter
-[*] L = 29.44 millimeter
-[*] Ws = 3.06 millimeter
-[*] y0 = 19.02 millimeter
-[*] x0 = 11.32 millimeter
-```
 
 #### PNG output using `--pngoutput`
 
