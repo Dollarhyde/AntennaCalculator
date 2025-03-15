@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 
 from os import sep
-import ezdxf
+import ezdxf   # pip install ezdxf
 
 class DXFGenerator:
     def __init__(self, args):
