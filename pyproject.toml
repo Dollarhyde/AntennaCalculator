@@ -6,17 +6,35 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
-    {name = "Erwin Karincic"},
+    {name = "Erwin Karincic"}
+]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
 ]
 dependencies = [
     "ezdxf~=1.4.0",
     "flet~=0.80.5",
-    "numpy~=2.2.3",
     "pcb-tools~=0.1.6",
     "pcb-tools-extension~=0.9.3",
     "pillow~=11.1.0",
     "Pint~=0.24.4",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Dollarhyde/AntennaCalculator"
+Repository = "https://github.com/Dollarhyde/AntennaCalculator"
+"Bug Tracker" = "https://github.com/Dollarhyde/AntennaCalculator/issues"
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
