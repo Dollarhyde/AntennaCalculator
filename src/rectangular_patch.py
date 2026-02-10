@@ -3,11 +3,11 @@
 import math
 from math import e
 from pint import UnitRegistry  #pip install pint
-ureg = UnitRegistry()
-
 from print_generator import PrintGenerator
 from dxf_generator import DXFGenerator
 from gerber_generator import GerberGenerator
+
+ureg = UnitRegistry()
 
 class RectangularPatch():
     def __init__(self, args):

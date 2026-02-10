@@ -18,12 +18,12 @@ class Monopole:
 
     def quarter_wave_monopole_calculator(self):
         f = self.args.frequency
-        l = self.quarter_wave_monopole(f)
+        length = self.quarter_wave_monopole(f)
         if self.args.verbose:
-            self.unit_print("Quarter Wave Monopole Length", l, self.args.unit)
+            self.unit_print("Quarter Wave Monopole Length", length, self.args.unit)
         else:
-            self.unit_print("L", l, self.args.unit)
+            self.unit_print("L", length, self.args.unit)
 
         if self.args.variable_return:
-            return l
+            return length
 

@@ -110,7 +110,6 @@ def build_monopole_view(page: ft.Page):
             args_return = list(args) + ["--variable_return"]
             shell_return = AntennaCalculator(a=args_return)
             shell_return.main(shell_return.getArgs())
-            params = shell_return.getCalcedParams()
 
             results_table.rows.clear()
             for line in printed_output.strip().split("\n"):

@@ -1,7 +1,6 @@
 #! /usr/bin/python3
 
 import os
-from os import sep
 import ezdxf   # pip install ezdxf
 
 class DXFGenerator:
