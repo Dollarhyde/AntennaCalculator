@@ -53,13 +53,13 @@ def main(page: ft.Page):
                 label="Rect. Patch",
             ),
             ft.NavigationRailDestination(
-                icon=ft.Icons.LINEAR_SCALE_OUTLINED,
-                selected_icon=ft.Icons.LINEAR_SCALE,
+                icon=ft.CupertinoIcons.DOT_RADIOWAVES_LEFT_RIGHT,
+                selected_icon=ft.CupertinoIcons.DOT_RADIOWAVES_LEFT_RIGHT,
                 label="Dipole",
             ),
             ft.NavigationRailDestination(
-                icon=ft.Icons.SIGNAL_CELLULAR_ALT_OUTLINED,
-                selected_icon=ft.Icons.SIGNAL_CELLULAR_ALT,
+                icon=ft.CupertinoIcons.DOT_RADIOWAVES_RIGHT,
+                selected_icon=ft.CupertinoIcons.DOT_RADIOWAVES_RIGHT,
                 label="Monopole",
             ),
         ],
@@ -67,7 +67,7 @@ def main(page: ft.Page):
     )
 
     page.appbar = ft.AppBar(
-        leading=ft.Icon(ft.Icons.CELL_TOWER),
+        leading=ft.Icon(ft.CupertinoIcons.ANTENNA_RADIOWAVES_LEFT_RIGHT),
         leading_width=40,
         title=ft.Text("Antenna Calculator", weight=ft.FontWeight.BOLD),
         center_title=False,
