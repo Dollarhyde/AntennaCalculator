@@ -123,17 +123,6 @@ def build_rectangular_patch_view(page: ft.Page):
         border_color=ft.Colors.ON_SURFACE,
     )
 
-    png_picker = ft.FilePicker(
-        on_result=lambda e: _on_png_picked(e),
-    )
-    dxf_picker = ft.FilePicker(
-        on_result=lambda e: _on_dxf_picked(e),
-    )
-    gerber_picker = ft.FilePicker(
-        on_result=lambda e: _on_gerber_picked(e),
-    )
-    page.overlay.extend([png_picker, dxf_picker, gerber_picker])
-
     calc_state = {
         "W": None, "L": None, "x0": None, "y0": None, "ws": None,
         "calculated": False,
@@ -321,56 +310,52 @@ def build_rectangular_patch_view(page: ft.Page):
 
         page.update()
 
-    def _on_png_picked(e: ft.FilePickerResultEvent):
-        if e.path:
-            path = e.path if e.path.lower().endswith(".png") else e.path + ".png"
-            _run_export(png_file=path)
-
-    def _on_dxf_picked(e: ft.FilePickerResultEvent):
-        if e.path:
-            path = e.path if e.path.lower().endswith(".dxf") else e.path + ".dxf"
-            _run_export(dxf_file=path)
-
-    def _on_gerber_picked(e: ft.FilePickerResultEvent):
-        if e.path:
-            _run_export(gerber_file=e.path)
-
-    def on_export_png(e):
+    async def on_export_png(e):
         if not calc_state["calculated"]:
             status_text.value = "Run Calculate first before exporting."
             status_text.color = ft.Colors.RED
             page.update()
             return
-        png_picker.save_file(
+        path = await ft.FilePicker().save_file(
             dialog_title="Save PNG File",
+            file_name="antenna.png",
             file_type=ft.FilePickerFileType.CUSTOM,
             allowed_extensions=["png"],
-            file_name="antenna.png",
         )
+        if path:
+            if not path.lower().endswith(".png"):
+                path += ".png"
+            _run_export(png_file=path)
 
-    def on_export_dxf(e):
+    async def on_export_dxf(e):
         if not calc_state["calculated"]:
             status_text.value = "Run Calculate first before exporting."
             status_text.color = ft.Colors.RED
             page.update()
             return
-        dxf_picker.save_file(
+        path = await ft.FilePicker().save_file(
             dialog_title="Save DXF File",
+            file_name="antenna.dxf",
             file_type=ft.FilePickerFileType.CUSTOM,
             allowed_extensions=["dxf"],
-            file_name="antenna.dxf",
         )
+        if path:
+            if not path.lower().endswith(".dxf"):
+                path += ".dxf"
+            _run_export(dxf_file=path)
 
-    def on_export_gerber(e):
+    async def on_export_gerber(e):
         if not calc_state["calculated"]:
             status_text.value = "Run Calculate first before exporting."
             status_text.color = ft.Colors.RED
             page.update()
             return
-        gerber_picker.save_file(
+        path = await ft.FilePicker().save_file(
             dialog_title="Save Gerber Files (base name)",
             file_name="antenna_gerber",
         )
+        if path:
+            _run_export(gerber_file=path)
 
     calculate_btn = ft.ElevatedButton(
         "Calculate",

@@ -1,5 +1,5 @@
 ezdxf~=1.4.0
-flet~=0.25.0
+flet~=0.80.5
 numpy~=2.2.3
 pcb-tools~=0.1.6
 pcb-tools-extension~=0.9.3
