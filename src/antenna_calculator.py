@@ -36,6 +36,8 @@ class AntennaCalculator:
                                                  help='Relative permittivity')
         rectangular_patch_subparser.add_argument('-h', '--height', type=float, required=True,
                                                  help='Substrate height in meters')
+        rectangular_patch_subparser.add_argument('-Z0', '--impedance', type=float, required=False, default=50,
+                                                 help='Impedance in ohms (default: 50)')
         rectangular_patch_subparser.add_argument('-u', '--unit', type=str,
                                                  choices=['meter', 'centimeter', 'millimeter', 'inch'], required=False,
                                                  help='Unit of measurement')

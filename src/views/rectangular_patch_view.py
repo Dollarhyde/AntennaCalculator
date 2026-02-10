@@ -190,6 +190,8 @@ def build_rectangular_patch_view(page: ft.Page):
             "-h", str(height_m),
             "--type", feed_type_dropdown.value,
         ]
+        if impedance_field.value and impedance_field.value.strip():
+            args.extend(["-Z0", impedance_field.value.strip()])
         if unit_dropdown.value:
             args.extend(["-u", unit_dropdown.value])
         if verbose_switch.value:

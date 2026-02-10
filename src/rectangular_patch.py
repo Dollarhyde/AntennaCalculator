@@ -148,9 +148,9 @@ class RectangularPatch():
             self.gerberGen.generate_gerber(self.args.gerberoutput)
 
 
-    def microstrip_patch_calculator(self, Z0=50):
+    def microstrip_patch_calculator(self):
 
-        Z0 = Z0 #50 ohms by default
+        Z0 = self.args.impedance
 
         W = self.patch_width(self.args.frequency, self.args.relative_permittivity)
         if not (self.args.variable_return):
