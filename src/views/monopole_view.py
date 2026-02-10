@@ -88,9 +88,9 @@ def build_monopole_view(page: ft.Page):
         if not _validate_inputs():
             return
 
+        old_stdout = sys.stdout
         try:
             captured = io.StringIO()
-            old_stdout = sys.stdout
             sys.stdout = captured
 
             freq_hz = str(float(frequency_field.value.strip()) * {"GHz": 1e9, "MHz": 1e6, "kHz": 1e3, "Hz": 1}[frequency_unit.value])
@@ -105,8 +105,6 @@ def build_monopole_view(page: ft.Page):
 
             shell = AntennaCalculator(a=args)
             shell.main(shell.getArgs())
-
-            sys.stdout = old_stdout
             printed_output = captured.getvalue()
 
             args_return = list(args) + ["--variable_return"]
@@ -137,11 +135,13 @@ def build_monopole_view(page: ft.Page):
             status_text.color = ft.Colors.GREEN_400
 
         except Exception as ex:
-            sys.stdout = old_stdout if 'old_stdout' in dir() else sys.__stdout__
             status_text.value = f"Error: {str(ex)}"
             status_text.color = ft.Colors.RED
             results_table.visible = False
             console_output.visible = False
+
+        finally:
+            sys.stdout = old_stdout
 
         page.update()
 

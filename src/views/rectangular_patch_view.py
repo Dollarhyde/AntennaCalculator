@@ -214,16 +214,14 @@ def build_rectangular_patch_view(page: ft.Page):
         if not _validate_inputs():
             return
 
+        old_stdout = sys.stdout
         try:
             captured = io.StringIO()
-            old_stdout = sys.stdout
             sys.stdout = captured
 
             args_print = _build_args(variable_return=False)
             shell_print = AntennaCalculator(a=args_print)
             shell_print.main(shell_print.getArgs())
-
-            sys.stdout = old_stdout
             printed_output = captured.getvalue()
 
             args_return = _build_args(variable_return=True)
@@ -272,11 +270,13 @@ def build_rectangular_patch_view(page: ft.Page):
             status_text.color = ft.Colors.GREEN_400
 
         except Exception as ex:
-            sys.stdout = old_stdout if 'old_stdout' in dir() else sys.__stdout__
             status_text.value = f"Error: {str(ex)}"
             status_text.color = ft.Colors.RED
             results_table.visible = False
             console_output.visible = False
+
+        finally:
+            sys.stdout = old_stdout
 
         page.update()
 
@@ -289,9 +289,9 @@ def build_rectangular_patch_view(page: ft.Page):
         if not _validate_inputs():
             return
 
+        old_stdout = sys.stdout
         try:
             captured = io.StringIO()
-            old_stdout = sys.stdout
             sys.stdout = captured
 
             args = _build_args(
@@ -302,8 +302,6 @@ def build_rectangular_patch_view(page: ft.Page):
             )
             shell = AntennaCalculator(a=args)
             shell.main(shell.getArgs())
-
-            sys.stdout = old_stdout
             printed = captured.getvalue()
 
             current = console_output.value or ""
@@ -315,9 +313,11 @@ def build_rectangular_patch_view(page: ft.Page):
             status_text.color = ft.Colors.GREEN_400
 
         except Exception as ex:
-            sys.stdout = old_stdout if 'old_stdout' in dir() else sys.__stdout__
             status_text.value = f"Export error: {str(ex)}"
             status_text.color = ft.Colors.RED
+
+        finally:
+            sys.stdout = old_stdout
 
         page.update()
 

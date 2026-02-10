@@ -74,8 +74,7 @@ class RectangularPatch():
         if b_result != -1:
             return b_result * h
         else:
-            if self.args.verbose:
-                print("No valid Stripline width found")
+            raise ValueError("No valid stripline width found for the given impedance and permittivity.")
 
     def y0_calculation(self, W):
         if self.args.verbose:
@@ -89,7 +88,13 @@ class RectangularPatch():
         Zin_x0 = Z0
         if self.args.verbose:
             print("[*] Zin_x0 =", Zin_x0)
-        x0 = math.acos(math.sqrt(Zin_x0/Zin_0)) * (L/math.pi)
+        ratio = Zin_x0 / Zin_0
+        if ratio > 1:
+            raise ValueError(
+                f"Requested impedance ({Zin_x0} Ω) exceeds the edge impedance ({Zin_0:.2f} Ω). "
+                "Cannot calculate feed point. Try a lower impedance or adjust patch dimensions."
+            )
+        x0 = math.acos(math.sqrt(ratio)) * (L/math.pi)
         if self.args.verbose:
             print("[*] x0 =", x0)
         return x0
