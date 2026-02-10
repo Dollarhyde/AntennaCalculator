@@ -18,6 +18,10 @@ dependencies = [
     "Pint~=0.24.4",
 ]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
 [tool.flet]
 # Flet build configuration
 # Build with:  flet build <platform>
