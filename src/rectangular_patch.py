@@ -101,8 +101,6 @@ class RectangularPatch():
             print("[*]", name, "= {:.2f}".format((value*ureg.meter).to_compact()))
 
     def export_png(self, filename, W, L, x0, y0, ws):
-        if self.args.pngoutput:
-             filename = self.args.pngoutput
         if self.args.type == "microstrip":
             self.printGen.print_patch(filename, round((W * ureg.meter).to(ureg.centimeter), 3).magnitude, round((L * ureg.meter).to(ureg.centimeter), 3).magnitude,
             round((x0 * ureg.meter).to(ureg.centimeter), 3).magnitude, round((y0 * ureg.meter).to(ureg.centimeter), 3).magnitude,
@@ -112,10 +110,6 @@ class RectangularPatch():
             round((x0 * ureg.meter).to(ureg.centimeter), 3).magnitude, round((y0 * ureg.meter).to(ureg.centimeter), 3).magnitude)
 
     def export_dxf(self, filename, W, L, x0, y0, ws, separate_layers=None):
-        if self.args.gerberoutput:
-            filename = self.args.gerberoutput
-        elif self.args.dxfoutput:
-            filename = self.args.dxfoutput
         if self.args.type == "microstrip":
             if self.args.dxfunit:
                 self.dxfGen.generate_patch_dxf(filename, round((W * ureg.meter).to(self.args.dxfunit), 5).magnitude, round((L * ureg.meter).to(self.args.dxfunit), 5).magnitude,
@@ -135,22 +129,22 @@ class RectangularPatch():
 
     def export_patch_to_png(self):
         if self.args.type == 'microstrip':
-            self.export_png(self.args.pngoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None)
+            self.export_png(self.args.pngoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width)
         elif self.args.type == 'probe':
-            self.export_png(self.args.pngoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None)
+            self.export_png(self.args.pngoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, None)
 
     def export_patch_to_dxf(self):
         if self.args.type == 'microstrip':
-            self.export_dxf(self.args.dxfoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None)
+            self.export_dxf(self.args.dxfoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width)
         elif self.args.type == 'probe':
-            self.export_dxf(self.args.dxfoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None)
+            self.export_dxf(self.args.dxfoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, None)
 
     def export_patch_to_gerber(self):
         if self.args.type == 'microstrip':
-            self.export_dxf(self.args.gerberoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None, True)
+            self.export_dxf(self.args.gerberoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width, True)
             self.gerberGen.generate_gerber(self.args.gerberoutput)
         elif self.args.type == 'probe':
-            self.export_dxf(self.args.gerberoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, self.args.strip_width if self.args.type == "microstrip" else None, True)
+            self.export_dxf(self.args.gerberoutput, self.args.width, self.args.length, self.args.x0, self.args.y0, None, True)
             self.gerberGen.generate_gerber(self.args.gerberoutput)
 
 
