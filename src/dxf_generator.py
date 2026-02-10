@@ -1,5 +1,6 @@
 #! /usr/bin/python3
 
+import os
 from os import sep
 import ezdxf   # pip install ezdxf
 
@@ -59,12 +60,14 @@ class DXFGenerator:
         # Save DXF file
         doc.saveas(filename)
         if separate_layers:
-            doc1.saveas(filename.split(".")[0] + "_top.dxf")
-            doc2.saveas(filename.split(".")[0] + "_substrate.dxf")
+            base = os.path.splitext(filename)[0]
+            doc1.saveas(base + "_top.dxf")
+            doc2.saveas(base + "_substrate.dxf")
 
         # Print message
         print("[*] DXF file generated: " + filename)
         if separate_layers:
-            print("[*] Top Layer DXF file generated: " + filename.split(".")[0] + "_top.dxf")
-            print("[*] Substrate DXF file generated: " + filename.split(".")[0] + "_substrate.dxf")
+            base = os.path.splitext(filename)[0]
+            print("[*] Top Layer DXF file generated: " + base + "_top.dxf")
+            print("[*] Substrate DXF file generated: " + base + "_substrate.dxf")
 
