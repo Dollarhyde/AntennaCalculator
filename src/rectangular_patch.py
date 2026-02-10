@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 
 import math
-from cmath import e
+from math import e
 from pint import UnitRegistry  #pip install pint
 ureg = UnitRegistry()
 
