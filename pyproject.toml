@@ -1,0 +1,29 @@
+[project]
+name = "AntennaCalculator"
+version = "3.0.0"
+description = "Open Source Antenna Designer"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Erwin Karincic"},
+]
+dependencies = [
+    "ezdxf~=1.4.0",
+    "flet~=0.25.0",
+    "numpy~=2.2.3",
+    "pcb-tools~=0.1.6",
+    "pcb-tools-extension~=0.9.3",
+    "pillow~=11.1.0",
+    "Pint~=0.24.4",
+]
+
+[tool.flet]
+# Flet build configuration
+# Build with:  flet build <platform>
+# Platforms:   windows, linux, macos
+app.module = "src.gui"
+app.name = "AntennaCalculator"
+app.description = "Open Source Antenna Designer"
+app.version = "3.0.0"
+app.build_number = "1"
