@@ -33,7 +33,7 @@ The analytical models for the three topologies are from [1]. The calculated desi
 
 ## Requirements
 
-This project requires numpy, pcb-tools-extension, ezdxf, pint, pillow. 
+This project requires numpy, pcb-tools-extension, ezdxf, pint, pillow, flet. 
 
 
 The AntennaCalculator has been tested on Python 3.9, 3.11, and 3.12. 
@@ -42,19 +42,29 @@ The AntennaCalculator has been tested on Python 3.9, 3.11, and 3.12.
 Use 'pip install -r requirements.txt' to install the following dependencies:
 
 ```python
-ezdxf~=0.18
-numpy~=1.23.2
+cairocffi~=0.9.0
+cffi~=1.17.1
+dxfgrabber~=1.0.1
+ezdxf~=1.4.0
+flet~=0.25.0
+flexcache~=0.3
+flexparser~=0.4
+fonttools~=4.56.0
+numpy~=2.2.3
 pcb-tools~=0.1.6
 pcb-tools-extension~=0.9.3
-Pillow~=9.5.0
-Pint~=0.19.2
-```
+pillow~=11.1.0
+Pint~=0.24.4
+platformdirs~=4.3.6
+pycparser~=2.22
+pyparsing~=3.2.1
+typing_extensions~=4.12.2```
 
 
 
 Or install manually with:
 ```python
-pip install numpy, pcb-tools-extension, ezdxf, pint, pillow
+pip install numpy pcb-tools-extension ezdxf pint pillow flet
 
 ```
 

@@ -2,6 +2,7 @@ cairocffi~=0.9.0
 cffi~=1.17.1
 dxfgrabber~=1.0.1
 ezdxf~=1.4.0
+flet~=0.25.0
 flexcache~=0.3
 flexparser~=0.4
 fonttools~=4.56.0
