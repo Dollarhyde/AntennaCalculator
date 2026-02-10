@@ -11,8 +11,8 @@ class Monopole:
         return(3e8 / (4 * f))
 
     def unit_print(self, name, value, unit=None):
-        if unit != None:
-            print("[*]", name, "= {:.2f}".format((value*ureg.meter).to(self.args.unit)))
+        if unit is not None:
+            print("[*]", name, "= {:.2f}".format((value*ureg.meter).to(unit)))
         else:
             print("[*]", name, "= {:.2f}".format((value*ureg.meter).to_compact()))
 
