@@ -180,6 +180,7 @@ class RectangularPatch():
         if not (self.args.variable_return):
             self.unit_print("y0", y0, self.args.unit)
 
+        ws = None
         if self.args.type == "microstrip":
             ws = self.ws_calculation(self.args.height, Z0, self.args.relative_permittivity)
             if not (self.args.variable_return):    
