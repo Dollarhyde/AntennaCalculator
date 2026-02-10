@@ -1,5 +1,7 @@
 import math
+import os
 import pytest
+from copy import deepcopy
 from rectangular_patch import RectangularPatch
 
 
@@ -74,3 +76,60 @@ class TestPatchCalculator:
         rp = RectangularPatch(patch_probe_args)
         result = rp.microstrip_patch_calculator()
         assert result is not None
+
+
+class TestPNGExport:
+
+    def test_png_export_microstrip(self, patch_args, tmp_path):
+        args = deepcopy(patch_args)
+        args.variable_return = False
+        args.pngoutput = str(tmp_path / "test_microstrip.png")
+        rp = RectangularPatch(args)
+        rp.microstrip_patch_calculator()
+        assert os.path.exists(args.pngoutput)
+        assert os.path.getsize(args.pngoutput) > 0
+
+    def test_png_export_probe(self, patch_probe_args, tmp_path):
+        args = deepcopy(patch_probe_args)
+        args.variable_return = False
+        args.pngoutput = str(tmp_path / "test_probe.png")
+        rp = RectangularPatch(args)
+        rp.microstrip_patch_calculator()
+        assert os.path.exists(args.pngoutput)
+        assert os.path.getsize(args.pngoutput) > 0
+
+
+class TestDXFExport:
+
+    def test_dxf_export_microstrip(self, patch_args, tmp_path):
+        args = deepcopy(patch_args)
+        args.variable_return = False
+        args.dxfoutput = str(tmp_path / "test_microstrip.dxf")
+        rp = RectangularPatch(args)
+        rp.microstrip_patch_calculator()
+        assert os.path.exists(args.dxfoutput)
+        assert os.path.getsize(args.dxfoutput) > 0
+
+    def test_dxf_export_separate_layers(self, patch_args, tmp_path):
+        args = deepcopy(patch_args)
+        args.variable_return = False
+        args.gerberoutput = str(tmp_path / "test_layers")
+        args.dxfoutput = None
+        rp = RectangularPatch(args)
+        rp.microstrip_patch_calculator()
+        assert os.path.exists(str(tmp_path / "test_layers_top.dxf"))
+        assert os.path.exists(str(tmp_path / "test_layers_substrate.dxf"))
+
+
+class TestGerberExport:
+
+    def test_gerber_export_microstrip(self, patch_args, tmp_path):
+        args = deepcopy(patch_args)
+        args.variable_return = False
+        args.gerberoutput = str(tmp_path / "test_gerber")
+        rp = RectangularPatch(args)
+        rp.microstrip_patch_calculator()
+        assert os.path.exists(str(tmp_path / "test_gerber_top.dxf"))
+        assert os.path.exists(str(tmp_path / "test_gerber_substrate.dxf"))
+        assert os.path.exists(str(tmp_path / "test_gerber_top.gtl"))
+        assert os.path.exists(str(tmp_path / "test_gerber_substrate.gml"))
