@@ -10,7 +10,6 @@ from antenna_calculator import AntennaCalculator
 
 
 def build_monopole_view(page: ft.Page):
-
     frequency_field = ft.TextField(
         label="Frequency",
         hint_text="e.g. 2.4",
@@ -93,10 +92,14 @@ def build_monopole_view(page: ft.Page):
             captured = io.StringIO()
             sys.stdout = captured
 
-            freq_hz = str(float(frequency_field.value.strip()) * {"GHz": 1e9, "MHz": 1e6, "kHz": 1e3, "Hz": 1}[frequency_unit.value])
+            freq_hz = str(
+                float(frequency_field.value.strip())
+                * {"GHz": 1e9, "MHz": 1e6, "kHz": 1e3, "Hz": 1}[frequency_unit.value]
+            )
             args = [
                 "quarter_wave_monopole",
-                "-f", freq_hz,
+                "-f",
+                freq_hz,
             ]
             if unit_dropdown.value:
                 args.extend(["-u", unit_dropdown.value])
@@ -117,10 +120,12 @@ def build_monopole_view(page: ft.Page):
                     parts = line[3:].strip().split("=", 1)
                     if len(parts) == 2:
                         results_table.rows.append(
-                            ft.DataRow(cells=[
-                                ft.DataCell(ft.Text(parts[0].strip())),
-                                ft.DataCell(ft.Text(parts[1].strip())),
-                            ])
+                            ft.DataRow(
+                                cells=[
+                                    ft.DataCell(ft.Text(parts[0].strip())),
+                                    ft.DataCell(ft.Text(parts[1].strip())),
+                                ]
+                            )
                         )
             results_table.visible = True
 
@@ -156,16 +161,24 @@ def build_monopole_view(page: ft.Page):
 
     view = ft.Column(
         controls=[
-            ft.Text("Quarter-Wave Monopole Antenna", size=24, weight=ft.FontWeight.BOLD),
+            ft.Text(
+                "Quarter-Wave Monopole Antenna", size=24, weight=ft.FontWeight.BOLD
+            ),
             ft.Divider(),
             ft.ResponsiveRow(
                 controls=[
-                    ft.Column(col={"sm": 12, "md": 6}, controls=[
-                        ft.Row([frequency_field, frequency_unit], spacing=5),
-                    ]),
-                    ft.Column(col={"sm": 12, "md": 6}, controls=[
-                        unit_dropdown,
-                    ]),
+                    ft.Column(
+                        col={"sm": 12, "md": 6},
+                        controls=[
+                            ft.Row([frequency_field, frequency_unit], spacing=5),
+                        ],
+                    ),
+                    ft.Column(
+                        col={"sm": 12, "md": 6},
+                        controls=[
+                            unit_dropdown,
+                        ],
+                    ),
                 ],
             ),
             verbose_switch,

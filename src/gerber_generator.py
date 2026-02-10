@@ -1,15 +1,16 @@
 #! /usr/bin/python3
 
 import os
-import gerberex # pip install pcb-tools-extension
+import gerberex  # pip install pcb-tools-extension
+
 
 class GerberGenerator:
     def __init__(self, args):
-        self.args = args    
+        self.args = args
 
     def read(self, filename):
         # temporary replacement for pcb-tools-extension python 3 compatibility issue for gerberex.read()
-        with open(filename, 'r') as f:
+        with open(filename, "r") as f:
             data = f.read()
         load_gerber = gerberex.loads(data, filename)
         return load_gerber
@@ -18,16 +19,16 @@ class GerberGenerator:
         base = os.path.splitext(filename)[0]
 
         # Generate the top layer gerber file
-        tl_dxf = self.read(base + '_top.dxf')
+        tl_dxf = self.read(base + "_top.dxf")
         tl_ctx = gerberex.GerberComposition()
         tl_dxf.draw_mode = tl_dxf.DM_FILL
         tl_ctx.merge(tl_dxf)
-        tl_ctx.dump(base + '_top.gtl')
+        tl_ctx.dump(base + "_top.gtl")
         print("[*] Top layer gerber file generated: " + base + "_top.gtl")
 
         # Generate the substrate gerber file
-        s_dxf = self.read(base + '_substrate.dxf')
+        s_dxf = self.read(base + "_substrate.dxf")
         s_ctx = gerberex.GerberComposition()
         s_ctx.merge(s_dxf)
-        s_ctx.dump(base + '_substrate.gml')
+        s_ctx.dump(base + "_substrate.gml")
         print("[*] Substrate gerber file generated: " + base + "_substrate.gml")

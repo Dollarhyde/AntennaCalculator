@@ -1,20 +1,22 @@
 #! /usr/bin/python3
 
 from pint import UnitRegistry
+
 ureg = UnitRegistry()
+
 
 class Monopole:
     def __init__(self, args):
         self.args = args
 
     def quarter_wave_monopole(self, f):
-        return(3e8 / (4 * f))
+        return 3e8 / (4 * f)
 
     def unit_print(self, name, value, unit=None):
         if unit is not None:
-            print("[*]", name, "= {:.2f}".format((value*ureg.meter).to(unit)))
+            print("[*]", name, "= {:.2f}".format((value * ureg.meter).to(unit)))
         else:
-            print("[*]", name, "= {:.2f}".format((value*ureg.meter).to_compact()))
+            print("[*]", name, "= {:.2f}".format((value * ureg.meter).to_compact()))
 
     def quarter_wave_monopole_calculator(self):
         f = self.args.frequency
@@ -26,4 +28,3 @@ class Monopole:
 
         if self.args.variable_return:
             return length
-

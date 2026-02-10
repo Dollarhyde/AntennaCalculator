@@ -10,7 +10,6 @@ from antenna_calculator import AntennaCalculator
 
 
 def build_rectangular_patch_view(page: ft.Page):
-
     frequency_field = ft.TextField(
         label="Frequency",
         hint_text="e.g. 2.4",
@@ -124,7 +123,11 @@ def build_rectangular_patch_view(page: ft.Page):
     )
 
     calc_state = {
-        "W": None, "L": None, "x0": None, "y0": None, "ws": None,
+        "W": None,
+        "L": None,
+        "x0": None,
+        "y0": None,
+        "ws": None,
         "calculated": False,
     }
 
@@ -169,15 +172,21 @@ def build_rectangular_patch_view(page: ft.Page):
         multipliers = {"mm": 1e-3, "cm": 1e-2, "m": 1, "mil": 2.54e-5, "inch": 0.0254}
         return float(value) * multipliers[unit]
 
-    def _build_args(variable_return=True, dxf_file=None, png_file=None, gerber_file=None):
+    def _build_args(
+        variable_return=True, dxf_file=None, png_file=None, gerber_file=None
+    ):
         freq_hz = _freq_to_hz(frequency_field.value.strip(), frequency_unit.value)
         height_m = _height_to_meters(height_field.value.strip(), height_unit.value)
         args = [
             "rectangular_patch",
-            "-f", str(freq_hz),
-            "-er", permittivity_field.value.strip(),
-            "-h", str(height_m),
-            "--type", feed_type_dropdown.value,
+            "-f",
+            str(freq_hz),
+            "-er",
+            permittivity_field.value.strip(),
+            "-h",
+            str(height_m),
+            "--type",
+            feed_type_dropdown.value,
         ]
         if impedance_field.value and impedance_field.value.strip():
             args.extend(["-Z0", impedance_field.value.strip()])
@@ -227,14 +236,20 @@ def build_rectangular_patch_view(page: ft.Page):
 
             if feed_type_dropdown.value == "microstrip" and len(params) == 5:
                 W, L, x0, y0, ws = params
-                calc_state.update({"W": W, "L": L, "x0": x0, "y0": y0, "ws": ws, "calculated": True})
+                calc_state.update(
+                    {"W": W, "L": L, "x0": x0, "y0": y0, "ws": ws, "calculated": True}
+                )
             elif feed_type_dropdown.value == "probe" and len(params) == 4:
                 W, L, x0, y0 = params
-                calc_state.update({"W": W, "L": L, "x0": x0, "y0": y0, "ws": None, "calculated": True})
+                calc_state.update(
+                    {"W": W, "L": L, "x0": x0, "y0": y0, "ws": None, "calculated": True}
+                )
             else:
                 W, L, x0, y0 = params[:4]
                 ws = params[4] if len(params) > 4 else None
-                calc_state.update({"W": W, "L": L, "x0": x0, "y0": y0, "ws": ws, "calculated": True})
+                calc_state.update(
+                    {"W": W, "L": L, "x0": x0, "y0": y0, "ws": ws, "calculated": True}
+                )
 
             results_table.rows.clear()
             for line in printed_output.strip().split("\n"):
@@ -242,10 +257,12 @@ def build_rectangular_patch_view(page: ft.Page):
                     parts = line[3:].strip().split("=", 1)
                     if len(parts) == 2:
                         results_table.rows.append(
-                            ft.DataRow(cells=[
-                                ft.DataCell(ft.Text(parts[0].strip())),
-                                ft.DataCell(ft.Text(parts[1].strip())),
-                            ])
+                            ft.DataRow(
+                                cells=[
+                                    ft.DataCell(ft.Text(parts[0].strip())),
+                                    ft.DataCell(ft.Text(parts[1].strip())),
+                                ]
+                            )
                         )
             results_table.visible = True
 
@@ -294,7 +311,9 @@ def build_rectangular_patch_view(page: ft.Page):
             printed = captured.getvalue()
 
             current = console_output.value or ""
-            console_output.value = current + "\n" + printed.strip() if current else printed.strip()
+            console_output.value = (
+                current + "\n" + printed.strip() if current else printed.strip()
+            )
             console_output.visible = True
 
             export_type = "PNG" if png_file else "DXF" if dxf_file else "Gerber"
@@ -369,9 +388,15 @@ def build_rectangular_patch_view(page: ft.Page):
 
     export_row = ft.Row(
         controls=[
-            ft.OutlinedButton("Export PNG", icon=ft.Icons.IMAGE, on_click=on_export_png),
-            ft.OutlinedButton("Export DXF", icon=ft.Icons.ARCHITECTURE, on_click=on_export_dxf),
-            ft.OutlinedButton("Export Gerber", icon=ft.Icons.LAYERS, on_click=on_export_gerber),
+            ft.OutlinedButton(
+                "Export PNG", icon=ft.Icons.IMAGE, on_click=on_export_png
+            ),
+            ft.OutlinedButton(
+                "Export DXF", icon=ft.Icons.ARCHITECTURE, on_click=on_export_dxf
+            ),
+            ft.OutlinedButton(
+                "Export Gerber", icon=ft.Icons.LAYERS, on_click=on_export_gerber
+            ),
             dxf_unit_dropdown,
         ],
         spacing=10,
@@ -384,16 +409,22 @@ def build_rectangular_patch_view(page: ft.Page):
             ft.Divider(),
             ft.ResponsiveRow(
                 controls=[
-                    ft.Column(col={"sm": 12, "md": 6}, controls=[
-                        ft.Row([frequency_field, frequency_unit], spacing=5),
-                        permittivity_field,
-                        ft.Row([height_field, height_unit], spacing=5),
-                    ]),
-                    ft.Column(col={"sm": 12, "md": 6}, controls=[
-                        impedance_field,
-                        feed_type_dropdown,
-                        unit_dropdown,
-                    ]),
+                    ft.Column(
+                        col={"sm": 12, "md": 6},
+                        controls=[
+                            ft.Row([frequency_field, frequency_unit], spacing=5),
+                            permittivity_field,
+                            ft.Row([height_field, height_unit], spacing=5),
+                        ],
+                    ),
+                    ft.Column(
+                        col={"sm": 12, "md": 6},
+                        controls=[
+                            impedance_field,
+                            feed_type_dropdown,
+                            unit_dropdown,
+                        ],
+                    ),
                 ],
             ),
             verbose_switch,
