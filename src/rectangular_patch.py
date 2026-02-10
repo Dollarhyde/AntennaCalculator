@@ -54,7 +54,7 @@ class RectangularPatch():
         B = self.B_calculation(Z0, er)
         if self.args.verbose:
             print("[*] B =", B)
-        wsd = (2/math.pi)*(B - 1 - math.ln(2*B-1) + (er-1)/(2*er) * (math.ln(B-1) + 0.39 - 0.61/(er)))
+        wsd = (2/math.pi)*(B - 1 - math.log(2*B-1) + (er-1)/(2*er) * (math.log(B-1) + 0.39 - 0.61/(er)))
         if self.args.verbose:
             print("[*] B Ws/d =", wsd)
         if wsd > 2:
@@ -67,10 +67,12 @@ class RectangularPatch():
             return -1
 
     def ws_calculation(self, h, Z0, er):
-        if self.A_check != -1:
-            return self.A_check(Z0, er) * h
-        elif self.B_check != -1:
-            return self.B_check(Z0, er) * h
+        a_result = self.A_check(Z0, er)
+        if a_result != -1:
+            return a_result * h
+        b_result = self.B_check(Z0, er)
+        if b_result != -1:
+            return b_result * h
         else:
             if self.args.verbose:
                 print("No valid Stripline width found")
