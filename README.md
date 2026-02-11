@@ -5,6 +5,8 @@
 [![Tests](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/tests.yml/badge.svg)](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/tests.yml)
 [![Lint](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/lint.yml/badge.svg)](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/lint.yml)
 [![Security](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/security.yml/badge.svg)](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/security.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18603940.svg)](https://doi.org/10.5281/zenodo.18603940)
+
 
 AntennaCalculator is an open-source antenna design tool that computes physical dimensions for rectangular patch, half-wave dipole, and quarter-wave monopole antennas using analytical models [1]. It provides both a command-line interface and a cross-platform desktop GUI. For rectangular patch antennas, designs can be exported directly to fabrication-ready formats including Gerber, DXF, and PNG.
 
