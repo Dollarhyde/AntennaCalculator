@@ -64,8 +64,6 @@ python antenna_calculator.py rectangular_patch -f 2.4e9 -er 4.4 -h 1.6e-3
 
 This computes the dimensions for a 2.4 GHz patch antenna on FR-4 substrate (εr = 4.4, height = 1.6 mm). 
 
-These are all the dimensions needed to fabricate a working antenna: patch width (W), patch length (L), the 50 Ω impedance-matched feed point location (x0, y0), and the microstrip feed line width (Ws). 
-
 ## GUI Application
 
 ### Running the GUI
