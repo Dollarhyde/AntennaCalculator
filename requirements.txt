@@ -2,5 +2,6 @@ ezdxf~=1.4.0
 flet~=0.80.5
 pcb-tools~=0.1.6
 pcb-tools-extension~=0.9.3
-pillow~=11.1.0
+pillow~=12.1.1
+
 Pint~=0.24.4
