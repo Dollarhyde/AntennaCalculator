@@ -1,7 +1,7 @@
 # AntennaCalculator
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/Dollarhyde/AntennaCalculator/blob/main/LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.11+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Tests](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/tests.yml/badge.svg)](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/tests.yml)
 [![Lint](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/lint.yml/badge.svg)](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/lint.yml)
 [![Security](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/security.yml/badge.svg)](https://github.com/Dollarhyde/AntennaCalculator/actions/workflows/security.yml)
