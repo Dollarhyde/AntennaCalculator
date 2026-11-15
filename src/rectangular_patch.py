@@ -2,10 +2,12 @@
 
 import math
 from math import e
+
 from pint import UnitRegistry  # pip install pint
-from print_generator import PrintGenerator
+
 from dxf_generator import DXFGenerator
 from gerber_generator import GerberGenerator
+from print_generator import PrintGenerator
 
 ureg = UnitRegistry()
 
@@ -116,9 +118,9 @@ class RectangularPatch:
 
     def unit_print(self, name, value, unit=None):
         if unit is not None:
-            print("[*]", name, "= {:.2f}".format((value * ureg.meter).to(unit)))
+            print("[*]", name, f"= {(value * ureg.meter).to(unit):.2f}")
         else:
-            print("[*]", name, "= {:.2f}".format((value * ureg.meter).to_compact()))
+            print("[*]", name, f"= {(value * ureg.meter).to_compact():.2f}")
 
     def export_png(self, filename, W, L, x0, y0, ws):
         if self.args.type == "microstrip":
@@ -258,7 +260,7 @@ class RectangularPatch:
             self.args.frequency, self.args.relative_permittivity, self.args.height, W
         )
         if self.args.verbose:
-            print("[*] Ereff = {:.2f}".format(ereff))
+            print(f"[*] Ereff = {ereff:.2f}")
 
         dL = self.delta_length(self.args.height, ereff, W)
         if self.args.verbose:

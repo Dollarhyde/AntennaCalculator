@@ -1,12 +1,16 @@
 #! /usr/bin/python3
 
-import sys
-import os
 import io
+import logging
+import os
+import sys
+
 import flet as ft
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from antenna_calculator import AntennaCalculator
+
+logger = logging.getLogger(__name__)
 
 
 def build_monopole_view(page: ft.Page):
@@ -139,7 +143,9 @@ def build_monopole_view(page: ft.Page):
             status_text.color = ft.Colors.GREEN_400
 
         except Exception as ex:
-            status_text.value = f"Error: {str(ex)}"
+            # Keep the GUI responsive while recording unexpected failures.
+            logger.exception("Antenna operation failed")
+            status_text.value = f"Error: {ex!s}"
             status_text.color = ft.Colors.RED
             results_table.visible = False
             console_output.visible = False

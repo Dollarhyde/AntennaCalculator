@@ -1,14 +1,15 @@
 #! /usr/bin/python3
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import flet as ft
-from views.rectangular_patch_view import build_rectangular_patch_view
+
 from views.dipole_view import build_dipole_view
 from views.monopole_view import build_monopole_view
+from views.rectangular_patch_view import build_rectangular_patch_view
 
 
 def main(page: ft.Page):

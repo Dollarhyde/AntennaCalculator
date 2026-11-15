@@ -1,6 +1,7 @@
 import math
 import os
 import pytest
+from PIL import Image
 from copy import deepcopy
 from rectangular_patch import RectangularPatch
 
@@ -87,7 +88,13 @@ class TestPNGExport:
         rp = RectangularPatch(args)
         rp.microstrip_patch_calculator()
         assert os.path.exists(args.pngoutput)
-        assert os.path.getsize(args.pngoutput) > 0
+        with Image.open(args.pngoutput) as image:
+            image.load()
+            assert image.format == "PNG"
+            assert image.size == (2598, 3307)
+            assert image.mode == "RGB"
+            assert image.getextrema() == ((0, 255), (0, 255), (0, 255))
+            assert image.info["dpi"] == pytest.approx((300, 300), abs=0.1)
 
     def test_png_export_probe(self, patch_probe_args, tmp_path):
         args = deepcopy(patch_probe_args)
@@ -96,7 +103,13 @@ class TestPNGExport:
         rp = RectangularPatch(args)
         rp.microstrip_patch_calculator()
         assert os.path.exists(args.pngoutput)
-        assert os.path.getsize(args.pngoutput) > 0
+        with Image.open(args.pngoutput) as image:
+            image.load()
+            assert image.format == "PNG"
+            assert image.size == (2598, 3307)
+            assert image.mode == "RGB"
+            assert image.getextrema() == ((0, 255), (0, 255), (0, 255))
+            assert image.info["dpi"] == pytest.approx((300, 300), abs=0.1)
 
 
 class TestDXFExport:

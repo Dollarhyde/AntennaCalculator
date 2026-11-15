@@ -9,9 +9,10 @@
 
 
 import argparse
-from rectangular_patch import RectangularPatch
+
 from dipole import Dipole
 from monopole import Monopole
+from rectangular_patch import RectangularPatch
 
 
 class AntennaCalculator:

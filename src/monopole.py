@@ -14,9 +14,9 @@ class Monopole:
 
     def unit_print(self, name, value, unit=None):
         if unit is not None:
-            print("[*]", name, "= {:.2f}".format((value * ureg.meter).to(unit)))
+            print("[*]", name, f"= {(value * ureg.meter).to(unit):.2f}")
         else:
-            print("[*]", name, "= {:.2f}".format((value * ureg.meter).to_compact()))
+            print("[*]", name, f"= {(value * ureg.meter).to_compact():.2f}")
 
     def quarter_wave_monopole_calculator(self):
         f = self.args.frequency
